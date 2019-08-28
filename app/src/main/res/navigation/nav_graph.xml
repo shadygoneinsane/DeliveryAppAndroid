@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/deliveriesListFragment">
+
+    <fragment
+        android:id="@+id/deliveriesListFragment"
+        android:name="com.deliveryapp.ui.delivieslist.DeliveriesListFragment"
+        android:label="{title}">
+        <action
+            android:id="@id/action_deliverydetail"
+            app:destination="@id/deliveryDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/deliveryDetailFragment"
+        android:name="com.deliveryapp.ui.deliverydetail.DeliveryDetailFragment"
+        android:label="DeliveryDetailFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="data"
+            app:argType="com.deliveryapp.models.DeliveryData" />
+    </fragment>
+</navigation>

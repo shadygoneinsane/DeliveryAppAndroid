@@ -1,0 +1,157 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-allopen'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+allOpen {
+    annotation 'com.deliveryapp.testing.AllOpen'
+}
+def STRING = "String"
+def BASE_URL = "BASE_URL"
+def maps_key = "maps_key"
+
+Properties props = new Properties()
+props.load(new FileInputStream(file("gradle.properties")))
+def server_api = props.getProperty("api").toString()
+def google_maps_key = props.getProperty("google_maps_key").toString()
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        applicationId "com.deliveryapp"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "com.deliveryapp.util.TestRunner"
+
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+        buildConfigField STRING, BASE_URL, server_api
+    }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
+
+    buildTypes {
+        debug {
+            resValue "string", maps_key, google_maps_key
+        }
+        release {
+            minifyEnabled false
+            resValue "string", maps_key, google_maps_key
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+
+    /*https://stackoverflow.com/questions/37347326/errorconflict-with-dependency-com-google-code-findbugsjsr305*/
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin.stdlib
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.core_ktx
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.runtime_ktx
+    implementation deps.navigation.ui_ktx
+    implementation deps.support.fragment_runtime_ktx
+    implementation deps.support.multidex
+    implementation deps.paging_ktx
+    implementation deps.room.runtime
+    implementation deps.room.compiler
+    implementation deps.map.play_maps_services
+    implementation deps.support.app_compat
+    annotationProcessor deps.room.compiler
+    kapt deps.room.compiler
+
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.okhttp_logging_interceptor
+
+
+    // Dagger Android
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android_support
+    implementation deps.dagger.android
+    annotationProcessor deps.dagger.android_support_compiler
+    annotationProcessor deps.dagger.compiler
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_support_compiler
+
+    implementation deps.glide.runtime
+    annotationProcessor deps.glide.compiler
+    kapt deps.glide.compiler
+
+    implementation deps.constraint_layout
+    implementation deps.support.v4
+
+    kaptAndroidTest deps.dagger.compiler
+    kaptAndroidTest deps.dagger.android_support_compiler
+
+    testImplementation deps.junit
+    testImplementation deps.arch_core.testing
+    testImplementation deps.retrofit.mock
+    testImplementation deps.mockito.core
+    testImplementation deps.mock_web_server
+    androidTestImplementation deps.mock_web_server
+
+    androidTestImplementation deps.atsl.core
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+    androidTestImplementation deps.atsl.ext_junit
+
+    androidTestImplementation deps.support.app_compat
+    androidTestImplementation deps.support.recyclerview
+    androidTestImplementation deps.support.cardview
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.mockito.core
+    androidTestImplementation deps.mockito.android
+    androidTestImplementation deps.retrofit.mock
+
+    androidTestImplementation deps.support.fragment_testing
+
+    androidTestUtil deps.orchestrator
+}
+
+apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}

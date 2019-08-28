@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.deliveryapp.models.DeliveryData" />
+
+        <import type="com.bumptech.glide.request.RequestListener" />
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="deliveryData"
+            type="com.deliveryapp.models.DeliveryData" />
+
+        <variable
+            name="imageRequestListener"
+            type="RequestListener&lt;Drawable>" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
+
+        <include
+            android:id="@+id/user_views"
+            layout="@layout/user_delivery_views"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:imageRequestListener="@{imageRequestListener}"
+            app:deliveryData="@{deliveryData}" />
+    </androidx.cardview.widget.CardView>
+</layout>

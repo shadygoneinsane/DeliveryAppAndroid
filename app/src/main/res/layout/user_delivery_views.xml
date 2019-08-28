@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.deliveryapp.models.DeliveryData" />
+
+        <import type="com.bumptech.glide.request.RequestListener" />
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="deliveryData"
+            type="com.deliveryapp.models.DeliveryData" />
+
+        <variable
+            name="imageRequestListener"
+            type="RequestListener&lt;Drawable>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_usr"
+            android:layout_width="@dimen/photo_size"
+            android:layout_height="@dimen/photo_size"
+            android:layout_marginStart="@dimen/custom_margin_start"
+            android:contentDescription="@string/img_placeholder"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            app:imageRequestListener="@{imageRequestListener}"
+            app:imageUrl="@{deliveryData.imageUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:transitionName="@{deliveryData.imageUrl}" />
+
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:foregroundGravity="center"
+            android:text="@{@string/desc_text(deliveryData.description, deliveryData.location.address)}"
+            android:textSize="18sp"
+            app:layout_anchor="@id/img_usr"
+            app:layout_constraintBottom_toBottomOf="@+id/img_usr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/img_usr"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:transitionName="@{deliveryData.description}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
