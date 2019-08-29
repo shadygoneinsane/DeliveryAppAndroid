@@ -86,7 +86,7 @@ class DeliveriesListFragment : DaggerFragment() {
                     if (action != null) {
                         navController().navigate(
                                 DeliveriesListFragmentDirections.actionDeliverydetail(
-                                        getString(R.string.delivery_details), deliveryData), extras)
+                                        getString(R.string.delivery_details), deliveryData.id), extras)
                     }
                 })
 

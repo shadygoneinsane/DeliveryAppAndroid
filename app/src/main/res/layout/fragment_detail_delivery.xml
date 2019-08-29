@@ -11,9 +11,11 @@
 
         <import type="com.bumptech.glide.request.RequestListener" />
 
+        <import type="androidx.lifecycle.LiveData"/>
+
         <variable
             name="dataResult"
-            type="DeliveryData" />
+            type="LiveData&lt;DeliveryData>" />
 
         <variable
             name="imageRequestListener"

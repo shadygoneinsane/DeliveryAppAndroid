@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.deliveryapp.api.ApiService
-import com.deliveryapp.db.DeliveriesDAO
+import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.db.DeliveriesDb
 import com.deliveryapp.models.DeliveryData
 import com.deliveryapp.repository.MainRepository
@@ -23,7 +23,7 @@ import org.mockito.Mockito.verify
 @RunWith(JUnit4::class)
 class MainRepositoryTest {
 
-    private val deliveriesDAO = Mockito.mock(DeliveriesDAO::class.java)
+    private val deliveriesDAO = Mockito.mock(DeliveriesDao::class.java)
     private val apiService = Mockito.mock(ApiService::class.java)
     private val deliveriesDb = Mockito.mock(DeliveriesDb::class.java)
     private lateinit var mainRepository: MainRepository

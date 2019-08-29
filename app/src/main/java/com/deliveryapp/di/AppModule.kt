@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.deliveryapp.api.ApiService
-import com.deliveryapp.db.DeliveriesDAO
+import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.db.DeliveriesDb
 import com.deliveryapp.repository.MainRepository
 import com.deliveryapp.testing.OpenForTesting
@@ -35,13 +35,13 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDeliveriesDao(db: DeliveriesDb): DeliveriesDAO {
+    fun provideDeliveriesDao(db: DeliveriesDb): DeliveriesDao {
         return db.deliveriesDAO()
     }
 
     @Singleton
     @Provides
-    fun provideMainRepository(apiService: ApiService, deliveriesDAO: DeliveriesDAO, appExecutors: AppExecutors): MainRepository {
+    fun provideMainRepository(apiService: ApiService, deliveriesDAO: DeliveriesDao, appExecutors: AppExecutors): MainRepository {
         return MainRepository(apiService, deliveriesDAO, appExecutors)
     }
 }

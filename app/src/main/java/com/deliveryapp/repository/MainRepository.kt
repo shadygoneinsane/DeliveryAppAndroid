@@ -3,7 +3,7 @@ package com.deliveryapp.repository
 import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import com.deliveryapp.api.ApiService
-import com.deliveryapp.db.DeliveriesDAO
+import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.models.DeliveryData
 import com.deliveryapp.testing.OpenForTesting
 import com.deliveryapp.utils.AppExecutors
@@ -15,7 +15,7 @@ import retrofit2.Response
 @OpenForTesting
 class MainRepository constructor(
         private val apiCall: ApiService,
-        private val deliveriesDAO: DeliveriesDAO,
+        private val deliveriesDAO: DeliveriesDao,
         private val appExecutors: AppExecutors) {
 
     /*

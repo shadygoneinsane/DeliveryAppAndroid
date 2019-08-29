@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import com.deliveryapp.api.ApiService
-import com.deliveryapp.db.DeliveriesDAO
+import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.db.DeliveriesDb
 import com.deliveryapp.models.DeliveryData
 import com.deliveryapp.repository.MainRepository
@@ -34,7 +34,7 @@ class DeliveriesViewModelUnitTest {
 
     private val deliveriesDb = Mockito.mock(DeliveriesDb::class.java)
     private val apiService = Mockito.mock(ApiService::class.java)
-    private val deliveriesDAO = Mockito.mock(DeliveriesDAO::class.java)
+    private val deliveriesDAO = Mockito.mock(DeliveriesDao::class.java)
 
     private lateinit var mainRepository: MainRepository
     private lateinit var listViewModel: DeliveriesListViewModel

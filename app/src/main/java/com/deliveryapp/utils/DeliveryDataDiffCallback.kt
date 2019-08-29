@@ -3,7 +3,7 @@ package com.deliveryapp.utils
 import androidx.recyclerview.widget.DiffUtil
 import com.deliveryapp.models.DeliveryData
 
-class MyDiffCallback : DiffUtil.ItemCallback<DeliveryData>() {
+class DeliveryDataDiffCallback : DiffUtil.ItemCallback<DeliveryData>() {
 
     override fun areItemsTheSame(oldItem: DeliveryData, newItem: DeliveryData): Boolean {
         return oldItem.id == newItem.id

@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 
 @OpenForTesting
 @RunWith(AndroidJUnit4::class)
-class DeliveriesDAOTest : DbTest() {
+class DeliveriesDaoTest : DbTest() {
 
     /**
      * A JUnit Test Rule that swaps the background executor used by the Architecture Components
@@ -31,7 +31,7 @@ class DeliveriesDAOTest : DbTest() {
                 "22.12", "114.22", "Earth")
         db.deliveriesDAO().insert(dataInserted)
 
-        val dataRead = LiveDataTestUtil.getValue(db.deliveriesDAO().findById(0))
+        val dataRead = db.deliveriesDAO().findById(0)
         assertThat(dataRead.id, `is`(0))
         assertThat(dataRead.description, `is`("Deliver assignment"))
         assertThat(dataRead.location?.lat, `is`(22.12))
@@ -46,7 +46,7 @@ class DeliveriesDAOTest : DbTest() {
         db.deliveriesDAO().insertAll(dataInserted)
 
         for (i in 0 until count) {
-            val dataRead = LiveDataTestUtil.getValue(db.deliveriesDAO().findById(i))
+            val dataRead = db.deliveriesDAO().findById(i)
             assertThat(dataRead.id, `is`(i))
             assertThat(dataRead.description, `is`("Deliver assignment"))
             assertThat(dataRead.location?.lat, `is`(22.12))

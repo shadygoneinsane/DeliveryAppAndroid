@@ -4,7 +4,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.deliveryapp.di.DaggerTestAppComponent
 import okhttp3.mockwebserver.MockWebServer
 
-class TestApp : MVVMApp() {
+class TestApp : DeliveryApp() {
 
     lateinit var mockWebServer: MockWebServer
 
@@ -13,7 +13,7 @@ class TestApp : MVVMApp() {
 
         val instrumentation = InstrumentationRegistry.getInstrumentation()
 
-        val app = instrumentation.targetContext.applicationContext as MVVMApp
+        val app = instrumentation.targetContext.applicationContext as DeliveryApp
 
         val appInjector = DaggerTestAppComponent
                 .builder()

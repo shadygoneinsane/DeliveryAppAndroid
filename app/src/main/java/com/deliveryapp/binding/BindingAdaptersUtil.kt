@@ -17,7 +17,7 @@ fun bindImage(imageView: ImageView, url: String?, listener: RequestListener<Draw
 }
 
 @BindingAdapter(value = ["lat", "lng", "markerTitle"], requireAll = true)
-fun bindMapData(mapView: MapView, lat: Double, lng: Double, title: String) {
+fun bindMapData(mapView: MapView, lat: Double, lng: Double, title: String?) {
     mapView.getMapAsync { map ->
         map.addMarker(MarkerOptions().position(LatLng(lat, lng)).title(title))
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat, lng), 16f))

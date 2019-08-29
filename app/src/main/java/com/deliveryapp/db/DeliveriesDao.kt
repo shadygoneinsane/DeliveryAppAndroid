@@ -9,7 +9,7 @@ import com.deliveryapp.models.DeliveryData
 import androidx.paging.DataSource
 
 @Dao
-interface DeliveriesDAO {
+interface DeliveriesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: DeliveryData)
@@ -18,7 +18,7 @@ interface DeliveriesDAO {
     fun insertAll(data: List<DeliveryData>)
 
     @Query("SELECT * FROM deliverydata WHERE id = :id")
-    fun findById(id: Int): LiveData<DeliveryData>
+    fun findById(id: Int): DeliveryData
 
     @Query("SELECT * FROM deliverydata")
     fun loadAllDeliveries(): LiveData<List<DeliveryData>>

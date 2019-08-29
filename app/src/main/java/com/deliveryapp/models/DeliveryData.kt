@@ -1,6 +1,7 @@
 package com.deliveryapp.models
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -12,7 +13,7 @@ class DeliveryData(
 
         @field:SerializedName("id")
         @Expose
-        var id: Int? = null,
+        val id: Int,
 
         @field:SerializedName("description")
         @Expose
@@ -24,5 +25,6 @@ class DeliveryData(
 
         @field:SerializedName("location")
         @Expose
+        @Embedded
         var location: Location? = null
 ) : Parcelable

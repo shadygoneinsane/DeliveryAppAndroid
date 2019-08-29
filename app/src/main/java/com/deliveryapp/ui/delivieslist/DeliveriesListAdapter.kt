@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deliveryapp.R
 import com.deliveryapp.models.DeliveryData
 import com.deliveryapp.repository.NetworkState
-import com.deliveryapp.utils.MyDiffCallback
+import com.deliveryapp.utils.DeliveryDataDiffCallback
 
 class DeliveriesListAdapter(private val retryCallback: () -> Unit,
                             private val repoClickCallback: ((DeliveryData, ImageView, TextView) -> Unit)?)
@@ -64,6 +64,6 @@ class DeliveriesListAdapter(private val retryCallback: () -> Unit,
     }
 
     companion object {
-        val POST_COMPARATOR = MyDiffCallback()
+        val POST_COMPARATOR = DeliveryDataDiffCallback()
     }
 }

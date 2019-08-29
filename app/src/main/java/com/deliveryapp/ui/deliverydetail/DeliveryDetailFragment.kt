@@ -56,8 +56,10 @@ class DeliveryDetailFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         deliveryDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DeliveryDetailViewModel::class.java)
         params = DeliveryDetailFragmentArgs.fromBundle(arguments!!)
-        deliveryDetailViewModel.setData(params.data)
-        binding.dataResult = deliveryDetailViewModel.results.value
+        binding.lifecycleOwner = viewLifecycleOwner
+        deliveryDetailViewModel.setData(params.dataId)
+
+        binding.dataResult = deliveryDetailViewModel.results
 
         changeToolbarText(params.title)
         setUpEnabled(true)

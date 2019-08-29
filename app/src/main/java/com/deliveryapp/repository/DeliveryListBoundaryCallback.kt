@@ -14,7 +14,7 @@ class DeliveryListBoundaryCallback(private val webservice: ApiService,
                                    private val mainRepository: MainRepository,
                                    private val networkPageLimit: Int,
                                    private val appExecutors: AppExecutors) : PagedList.BoundaryCallback<DeliveryData>() {
-    private var mRequestQueue: Call<List<DeliveryData>>? = null
+    private var requestQueue: Call<List<DeliveryData>>? = null
     val networkState = MutableLiveData<NetworkState>()
 
     override fun onZeroItemsLoaded() {
@@ -24,17 +24,17 @@ class DeliveryListBoundaryCallback(private val webservice: ApiService,
 
     override fun onItemAtEndLoaded(itemAtEnd: DeliveryData) {
         networkState.postValue(NetworkState.LOADING)
-        webservice.getData((itemAtEnd.id!! + 1), networkPageLimit).enqueue(WebserviceCallback())
+        webservice.getData((itemAtEnd.id + 1), networkPageLimit).enqueue(WebserviceCallback())
     }
 
     fun retryAllFailed() {
-        if (mRequestQueue != null)
+        if (requestQueue != null)
             networkState.postValue(NetworkState.LOADING)
-        mRequestQueue?.enqueue(WebserviceCallback())
+        requestQueue?.enqueue(WebserviceCallback())
     }
 
     fun queueRequest(call: Call<List<DeliveryData>>) {
-        mRequestQueue = call.clone()
+        requestQueue = call.clone()
     }
 
     private fun handleResponse(response: Response<List<DeliveryData>>) {

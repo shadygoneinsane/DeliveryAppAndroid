@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import com.deliveryapp.MVVMApp
+import com.deliveryapp.DeliveryApp
 import com.deliveryapp.R
 import com.deliveryapp.TestApp
 import com.deliveryapp.ui.MainActivity
@@ -30,14 +30,14 @@ class DeliveriesListFragmentTest {
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java, true, false)
 
-    private lateinit var app: MVVMApp
+    private lateinit var app: DeliveryApp
 
     private lateinit var mockWebServer: MockWebServer
 
     @Before
     fun init() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
-        app = instrumentation.targetContext.applicationContext as MVVMApp
+        app = instrumentation.targetContext.applicationContext as DeliveryApp
 
         val intent = Intent(instrumentation.targetContext, MainActivity::class.java)
         activityRule.launchActivity(intent)

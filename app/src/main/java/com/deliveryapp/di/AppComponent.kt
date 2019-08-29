@@ -1,7 +1,7 @@
 package com.deliveryapp.di
 
 import android.app.Application
-import com.deliveryapp.MVVMApp
+import com.deliveryapp.DeliveryApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -21,7 +21,7 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
         fun build(): AppComponent
     }
 
-    fun inject(mvvmApp: MVVMApp)
+    fun inject(mvvmApp: DeliveryApp)
 
     override fun inject(instance: DaggerApplication)
 }

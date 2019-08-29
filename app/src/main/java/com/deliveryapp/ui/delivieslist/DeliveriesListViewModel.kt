@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.deliveryapp.api.ApiService
-import com.deliveryapp.db.DeliveriesDAO
+import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.models.DeliveryData
 import com.deliveryapp.repository.DeliveryListBoundaryCallback
 import com.deliveryapp.repository.MainRepository
@@ -20,14 +20,14 @@ import javax.inject.Inject
 
 @OpenForTesting
 class DeliveriesListViewModel @Inject constructor(private val mainRepository: MainRepository,
-                                                  apiCall: ApiService,
-                                                  deliveriesDAO: DeliveriesDAO,
+                                                  apiService: ApiService,
+                                                  deliveriesDAO: DeliveriesDao,
                                                   appExecutors: AppExecutors) : ViewModel() {
     var isNetworkPresent = false
     var refreshState = MutableLiveData<NetworkState>()
 
     private final var boundaryCallback = DeliveryListBoundaryCallback(
-            webservice = apiCall,
+            webservice = apiService,
             mainRepository = mainRepository,
             networkPageLimit = PAGE_SIZE,
             appExecutors = appExecutors)
