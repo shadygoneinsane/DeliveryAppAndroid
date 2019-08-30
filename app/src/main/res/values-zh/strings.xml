@@ -6,7 +6,6 @@
     <string name="retry">重试</string>
     <string name="things_to_deliver">要交付的东西</string>
     <string name="delivery_details">交货细节</string>
-    <string name="no_more_data">没有更多数据</string>
     <string name="desc_text">%s 在 %s</string>
     <string name="no_network_conn">请连接到网络</string>
     <string name="no_error_msg">出了点问题，请再试一次！</string>

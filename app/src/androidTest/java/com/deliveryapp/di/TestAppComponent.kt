@@ -21,7 +21,7 @@ interface TestAppComponent : AppComponent {
         fun build(): TestAppComponent
     }
 
-    override fun inject(mvvmApp: DeliveryApp)
+    override fun inject(deliveryApp: DeliveryApp)
 
     override fun inject(instance: DaggerApplication)
 

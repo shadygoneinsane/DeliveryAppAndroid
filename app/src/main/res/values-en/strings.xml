@@ -5,7 +5,6 @@
     <string name="retry">Retry</string>
     <string name="things_to_deliver">Things to Deliver</string>
     <string name="delivery_details">Delivery Details</string>
-    <string name="no_more_data">No More Data</string>
     <string name="desc_text">%s at %s</string>
     <string name="no_network_conn">Please connect to a network</string>
     <string name="no_error_msg">Something went wrong, please try again !</string>

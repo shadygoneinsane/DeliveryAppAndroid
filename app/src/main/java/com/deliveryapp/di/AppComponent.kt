@@ -21,7 +21,7 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
         fun build(): AppComponent
     }
 
-    fun inject(mvvmApp: DeliveryApp)
+    fun inject(deliveryApp: DeliveryApp)
 
     override fun inject(instance: DaggerApplication)
 }

@@ -25,10 +25,6 @@ object DeliveryDataGenerator {
         return aa
     }
 
-    fun createSingleDeliveryData(id: Int): DeliveryData {
-        return createDeliveryData(id, descTest, urlImgTest, latTest, lngTest, addressTest)
-    }
-
     fun createDeliveryData(id: Int, description: String, imageUrl: String?, lat: String, lng: String, address: String): DeliveryData {
         return DeliveryData(id, description, imageUrl, createLocationData(lat, lng, address))
     }
