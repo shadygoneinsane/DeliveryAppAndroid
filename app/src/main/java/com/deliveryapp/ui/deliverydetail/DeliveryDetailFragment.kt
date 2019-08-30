@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionInflater
@@ -56,10 +57,11 @@ class DeliveryDetailFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         deliveryDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DeliveryDetailViewModel::class.java)
         params = DeliveryDetailFragmentArgs.fromBundle(arguments!!)
-        binding.lifecycleOwner = viewLifecycleOwner
         deliveryDetailViewModel.setData(params.dataId)
 
-        binding.dataResult = deliveryDetailViewModel.results
+        deliveryDetailViewModel.results.observe(this, Observer {
+            binding.dataResult = it
+        })
 
         changeToolbarText(params.title)
         setUpEnabled(true)
