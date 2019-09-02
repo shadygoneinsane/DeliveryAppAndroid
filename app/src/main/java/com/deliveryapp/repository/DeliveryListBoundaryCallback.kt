@@ -8,13 +8,15 @@ import com.deliveryapp.models.NetworkState
 import com.deliveryapp.testing.OpenForTesting
 import com.deliveryapp.utils.AppExecutors
 import com.deliveryapp.utils.Constants
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.net.HttpURLConnection
 
 @OpenForTesting
-class DeliveryListBoundaryCallback(private val webservice: ApiService,
+class DeliveryListBoundaryCallback(private val apiService: ApiService,
                                    private val mainRepository: MainRepository,
                                    private val appExecutors: AppExecutors) : PagedList.BoundaryCallback<DeliveryData>() {
     private var requestQueue: Call<List<DeliveryData>>? = null
@@ -22,23 +24,36 @@ class DeliveryListBoundaryCallback(private val webservice: ApiService,
 
     override fun onZeroItemsLoaded() {
         networkState.postValue(NetworkState.LOADING)
-        webservice.getData(0, Constants.PAGE_SIZE).enqueue(WebserviceCallback())
+        GlobalScope.launch {
+            val response = callFetchData(0)
+            if (response.code() == HttpURLConnection.HTTP_OK)
+                handleResponse(response)
+            else {
+                networkState.postValue(NetworkState.error(response.code()))
+            }
+        }
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: DeliveryData) {
         networkState.postValue(NetworkState.LOADING)
-        webservice.getData((itemAtEnd.id + 1), Constants.PAGE_SIZE).enqueue(WebserviceCallback())
+        GlobalScope.launch {
+            val response = callFetchData(itemAtEnd.id + 1)
+            if (response.code() == HttpURLConnection.HTTP_OK)
+                handleResponse(response)
+            else {
+                networkState.postValue(NetworkState.error(response.code()))
+            }
+        }
     }
+
+    private suspend fun callFetchData(offset: Int): Response<List<DeliveryData>> =
+            apiService.getData(offset, Constants.PAGE_SIZE)
 
     fun retryAllFailed() {
         requestQueue?.let {
             networkState.postValue(NetworkState.LOADING)
             it.enqueue(WebserviceCallback())
         }
-    }
-
-    fun queueRequest(call: Call<List<DeliveryData>>) {
-        requestQueue = call.clone()
     }
 
     private fun handleResponse(response: Response<List<DeliveryData>>) {
@@ -62,5 +77,9 @@ class DeliveryListBoundaryCallback(private val webservice: ApiService,
                 queueRequest(call.clone())
             }
         }
+    }
+
+    fun queueRequest(call: Call<List<DeliveryData>>) {
+        requestQueue = call.clone()
     }
 }

@@ -79,6 +79,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation deps.kotlin.stdlib
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
     implementation deps.support.cardview
@@ -101,7 +102,6 @@ dependencies {
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.okhttp_logging_interceptor
-
 
     // Dagger Android
     implementation deps.dagger.runtime

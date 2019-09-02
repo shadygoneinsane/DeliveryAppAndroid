@@ -26,7 +26,7 @@ class MainRepository constructor(
     fun refresh(networkState: MutableLiveData<NetworkState>,
                 refreshState: MutableLiveData<NetworkState>) {
         networkState.postValue(NetworkState.LOADING)
-        apiCall.getData(0, PAGE_SIZE).enqueue(
+        /*apiCall.getData(0, PAGE_SIZE).enqueue(
                 object : Callback<List<DeliveryData>> {
                     override fun onFailure(call: Call<List<DeliveryData>>, t: Throwable) {
                         networkState.postValue(NetworkState.error(t.message))
@@ -43,7 +43,7 @@ class MainRepository constructor(
                         }
                     }
                 }
-        )
+        )*/
     }
 
     fun insertResultIntoDb(list: List<DeliveryData>?) {
