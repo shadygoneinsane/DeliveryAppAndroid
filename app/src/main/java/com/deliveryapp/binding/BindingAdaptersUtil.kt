@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
+import com.deliveryapp.utils.Constants.DEFAULT_ZOOM
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
@@ -20,7 +21,7 @@ fun bindImage(imageView: ImageView, url: String?, listener: RequestListener<Draw
 fun bindMapData(mapView: MapView, lat: Double, lng: Double, title: String?) {
     mapView.getMapAsync { map ->
         map.addMarker(MarkerOptions().position(LatLng(lat, lng)).title(title))
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat, lng), 16f))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat, lng), DEFAULT_ZOOM))
     }
 }
 

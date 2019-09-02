@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.deliveryapp.R
 import com.deliveryapp.databinding.FragmentDeliveriesBinding
 import com.deliveryapp.models.DeliveryData
-import com.deliveryapp.repository.NetworkState
-import com.deliveryapp.repository.Status
+import com.deliveryapp.models.NetworkState
+import com.deliveryapp.models.Status
 import com.deliveryapp.testing.OpenForTesting
-import com.deliveryapp.utils.AppExecutors
 import com.deliveryapp.utils.ConnectionLiveData
 import com.deliveryapp.utils.Constants
 import com.deliveryapp.utils.ErrorHandler
@@ -32,9 +31,6 @@ class DeliveriesListFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var appExecutors: AppExecutors
 
     lateinit var deliveriesListViewModel: DeliveriesListViewModel
 
@@ -82,8 +78,7 @@ class DeliveriesListFragment : DaggerFragment() {
                             textView to deliveryData.description!!
                     )
 
-                    val action = navController().currentDestination?.getAction(R.id.action_deliverydetail)
-                    if (action != null) {
+                    navController().currentDestination?.getAction(R.id.action_deliverydetail)?.let {
                         navController().navigate(
                                 DeliveriesListFragmentDirections.actionDeliverydetail(
                                         getString(R.string.delivery_details), deliveryData.id), extras)

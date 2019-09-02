@@ -7,7 +7,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.deliveryapp.R
 import com.deliveryapp.models.DeliveryData
-import com.deliveryapp.repository.NetworkState
+import com.deliveryapp.models.NetworkState
 import com.deliveryapp.utils.DeliveryDataDiffCallback
 
 class DeliveriesListAdapter(private val retryCallback: () -> Unit,

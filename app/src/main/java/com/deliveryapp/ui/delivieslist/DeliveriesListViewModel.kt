@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.deliveryapp.api.ApiService
 import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.models.DeliveryData
+import com.deliveryapp.models.NetworkState
 import com.deliveryapp.repository.DeliveryListBoundaryCallback
 import com.deliveryapp.repository.MainRepository
-import com.deliveryapp.repository.NetworkState
 import com.deliveryapp.testing.OpenForTesting
-import com.deliveryapp.utils.AppExecutors
 import com.deliveryapp.utils.Constants
 import com.deliveryapp.utils.Constants.PAGE_SIZE
 import com.deliveryapp.utils.Constants.PREFETCH_DISTANCE
@@ -20,17 +18,10 @@ import javax.inject.Inject
 
 @OpenForTesting
 class DeliveriesListViewModel @Inject constructor(private val mainRepository: MainRepository,
-                                                  apiService: ApiService,
                                                   deliveriesDAO: DeliveriesDao,
-                                                  appExecutors: AppExecutors) : ViewModel() {
+                                                  private val boundaryCallback: DeliveryListBoundaryCallback) : ViewModel() {
     var isNetworkPresent = false
     var refreshState = MutableLiveData<NetworkState>()
-
-    private final var boundaryCallback = DeliveryListBoundaryCallback(
-            webservice = apiService,
-            mainRepository = mainRepository,
-            networkPageLimit = PAGE_SIZE,
-            appExecutors = appExecutors)
 
     var networkState: MutableLiveData<NetworkState> = boundaryCallback.networkState
 

@@ -1,4 +1,4 @@
-package com.deliveryapp.repository
+package com.deliveryapp.models
 
 data class NetworkState constructor(val status: Status, val msg: String? = null, val code: Int? = null) {
     companion object {

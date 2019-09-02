@@ -30,7 +30,8 @@ class ApiTestService {
         val serverUrl = mockWebServer.url("/").toString()
         val gsonConverter = apiModule.provideGsonConverterFactory()
         val createLoggingInterceptor = apiModule.createLoggingInterceptor()
-        val retrofit = apiModule.provideRetrofit(serverUrl, gsonConverter, createLoggingInterceptor)
+        val httpClient = apiModule.createHttpClient(createLoggingInterceptor)
+        val retrofit = apiModule.provideRetrofit(serverUrl, gsonConverter, httpClient)
         apiService = apiModule.provideApiService(retrofit)
     }
 

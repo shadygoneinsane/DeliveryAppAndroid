@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.deliveryapp.api.ApiService
 import com.deliveryapp.db.DeliveriesDao
 import com.deliveryapp.models.DeliveryData
+import com.deliveryapp.models.NetworkState
 import com.deliveryapp.testing.OpenForTesting
 import com.deliveryapp.utils.AppExecutors
 import com.deliveryapp.utils.Constants.PAGE_SIZE

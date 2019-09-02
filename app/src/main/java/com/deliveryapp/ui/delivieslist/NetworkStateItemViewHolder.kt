@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.deliveryapp.R
 import com.deliveryapp.databinding.ItemNetworkStateBinding
-import com.deliveryapp.repository.NetworkState
+import com.deliveryapp.models.NetworkState
 
 class NetworkStateItemViewHolder(val binding: ItemNetworkStateBinding)
     : RecyclerView.ViewHolder(binding.root) {

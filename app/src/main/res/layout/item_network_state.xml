@@ -4,9 +4,9 @@
 
     <data>
 
-        <import type="com.deliveryapp.repository.NetworkState" />
+        <import type="com.deliveryapp.models.NetworkState" />
 
-        <import type="com.deliveryapp.repository.Status" />
+        <import type="com.deliveryapp.models.Status" />
 
         <variable
             name="networkState"

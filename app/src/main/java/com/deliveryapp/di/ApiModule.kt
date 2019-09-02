@@ -1,6 +1,5 @@
 package com.deliveryapp.di
 
-import android.util.Log
 import com.deliveryapp.BuildConfig
 import com.deliveryapp.api.ApiService
 import com.deliveryapp.testing.OpenForTesting
@@ -31,10 +30,8 @@ class ApiModule {
     @Provides
     fun provideRetrofit(@Named(BASE_URL) baseUrl: String,
                         converterFactory: Converter.Factory,
-                        httpLoggingInterceptor: HttpLoggingInterceptor): Retrofit {
-        val httpClient = OkHttpClient.Builder()
-        if (BuildConfig.DEBUG)
-            httpClient.addInterceptor(httpLoggingInterceptor)
+                        httpClient : OkHttpClient.Builder): Retrofit {
+
         return Retrofit.Builder()
                 .addConverterFactory(converterFactory)
                 .baseUrl(baseUrl)
@@ -52,14 +49,17 @@ class ApiModule {
     @Singleton
     @Provides
     fun createLoggingInterceptor(): HttpLoggingInterceptor {
-        val logging: HttpLoggingInterceptor
-        logging = HttpLoggingInterceptor { message ->
-            try {
-                Log.d("Retrofit :: ", message)
-            } catch (ignore: Exception) {
-            }
-        }
+        val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         return logging
+    }
+
+    @Singleton
+    @Provides
+    fun createHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor) : OkHttpClient.Builder{
+        val httpClient = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG)
+            httpClient.addInterceptor(httpLoggingInterceptor)
+        return httpClient
     }
 }

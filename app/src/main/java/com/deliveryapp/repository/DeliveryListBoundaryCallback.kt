@@ -4,33 +4,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.deliveryapp.api.ApiService
 import com.deliveryapp.models.DeliveryData
+import com.deliveryapp.models.NetworkState
+import com.deliveryapp.testing.OpenForTesting
 import com.deliveryapp.utils.AppExecutors
 import com.deliveryapp.utils.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.HttpURLConnection
 
+@OpenForTesting
 class DeliveryListBoundaryCallback(private val webservice: ApiService,
                                    private val mainRepository: MainRepository,
-                                   private val networkPageLimit: Int,
                                    private val appExecutors: AppExecutors) : PagedList.BoundaryCallback<DeliveryData>() {
     private var requestQueue: Call<List<DeliveryData>>? = null
     val networkState = MutableLiveData<NetworkState>()
 
     override fun onZeroItemsLoaded() {
         networkState.postValue(NetworkState.LOADING)
-        webservice.getData(0, networkPageLimit).enqueue(WebserviceCallback())
+        webservice.getData(0, Constants.PAGE_SIZE).enqueue(WebserviceCallback())
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: DeliveryData) {
         networkState.postValue(NetworkState.LOADING)
-        webservice.getData((itemAtEnd.id + 1), networkPageLimit).enqueue(WebserviceCallback())
+        webservice.getData((itemAtEnd.id + 1), Constants.PAGE_SIZE).enqueue(WebserviceCallback())
     }
 
     fun retryAllFailed() {
-        if (requestQueue != null)
+        requestQueue?.let {
             networkState.postValue(NetworkState.LOADING)
-        requestQueue?.enqueue(WebserviceCallback())
+            it.enqueue(WebserviceCallback())
+        }
     }
 
     fun queueRequest(call: Call<List<DeliveryData>>) {
@@ -51,7 +55,7 @@ class DeliveryListBoundaryCallback(private val webservice: ApiService,
         }
 
         override fun onResponse(call: Call<List<DeliveryData>>, response: Response<List<DeliveryData>>) {
-            if (response.code() == 200)
+            if (response.code() == HttpURLConnection.HTTP_OK)
                 handleResponse(response)
             else {
                 networkState.postValue(NetworkState.error(response.code()))

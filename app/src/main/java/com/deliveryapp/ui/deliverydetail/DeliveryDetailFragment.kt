@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.Target
 import com.deliveryapp.R
 import com.deliveryapp.databinding.FragmentDetailDeliveryBinding
 import com.deliveryapp.testing.OpenForTesting
-import com.deliveryapp.utils.AppExecutors
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -27,8 +26,6 @@ class DeliveryDetailFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var appExecutors: AppExecutors
     private lateinit var deliveryDetailViewModel: DeliveryDetailViewModel
     lateinit var binding: FragmentDetailDeliveryBinding
     private lateinit var params: DeliveryDetailFragmentArgs

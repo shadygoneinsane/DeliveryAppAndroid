@@ -6,4 +6,5 @@ object Constants {
     const val PREFETCH_DISTANCE = 6
     const val DEFAULT_ERR = 1001
     const val DEFAULT_PORT = 8080
+    const val DEFAULT_ZOOM = 16f
 }
