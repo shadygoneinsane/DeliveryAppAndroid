@@ -11,8 +11,6 @@ Data can be refreshed using Pull to refresh
 In case api fails, user can retry for fetching data again
 Data binding using `Data Binding`
 
-<img src="https://github.com/shadygoneinsane/DeliveryApp/blob/master/app/architecture.jpg" alt="Architecture followed"/>
-
 ## Unit Testing
 
 UI and Unit testing is achieved with `Espresso`, `Mockito` and `MockWebServer`
